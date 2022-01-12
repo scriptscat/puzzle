@@ -5,7 +5,7 @@ module.exports = {
     html() {
         return `
     <div class="puzzle">
-        <span class="tip">好啦~赶紧~我们到下一关去吧~</span>
+        <a href='stage2.html'>点击进入下一关</a>
     </div>
     `},
 }
