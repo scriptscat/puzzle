@@ -91,7 +91,28 @@ class Stage {
         }
     }
     ${js||''}
-}`
+}
+let oldAddEv = EventTarget.prototype.addEventListener;
+EventTarget.prototype.addEventListener = function (topic, callback) {
+    let old = callback;
+    arguments[1] = function (ev) {
+        if ((ev instanceof PointerEvent || ev instanceof InputEvent) && ev.isTrusted) {
+            ev.preventDefault();
+            alert('用脚本/console来操作啦');
+            return false;
+        } else if (ev instanceof KeyboardEvent && ev.isTrusted) {
+            ev.preventDefault();
+            return false;
+        }
+        return old.apply(this, arguments);
+    }
+    oldAddEv.apply(this, arguments);
+}
+
+document.addEventListener('click',()=>{
+    return false;
+});
+`
     }
 
     static commonCss(css) {
