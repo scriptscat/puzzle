@@ -88,8 +88,8 @@ jobs:
         helm upgrade --install \
         --namespace $NAMESPACE $APP_NAME . -f values.yaml \
         --set image.tag=${{ env.ENV }}.${{ steps.vars.outputs.sha_short }} --set image.repository=$REGISTRY/$REPOSITORY \
-        --set config.config=${{ secrets.CONFIG }} \ 
-        --set config.dbConfig=${{ secrets.DBCONFIG }} \
+        --set config.config="${{ secrets.CONFIG }}" \
+        --set config.dbConfig="${{ secrets.DBCONFIG }}" \
         --set ingress.hosts[0].host=$DOMAIN \
         --set ingress.tls[0].hosts[0]=$DOMAIN \
         --set resources.requests.cpu=$RESOURCE_CPU \
