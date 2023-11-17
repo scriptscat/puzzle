@@ -22,7 +22,9 @@
             ev.isTrusted
           ) {
             ev.preventDefault();
-            alert("用脚本/console来操作啦");
+            if (ev.target !== document.querySelector("html")) {
+              alert("用脚本/console来操作啦");
+            }
             return false;
           } else if (ev instanceof KeyboardEvent && ev.isTrusted) {
             ev.preventDefault();

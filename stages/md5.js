@@ -1,6 +1,6 @@
 module.exports = {
 	stage: 8,
-	next: 'yhbbs',
+	next: 'md5-rev',
 	passwd:"c9f0f895fb98ab9159f51fd0297e236d",
 	html() {
 		return `
