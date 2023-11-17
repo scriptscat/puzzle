@@ -1,6 +1,6 @@
 module.exports = {
 	stage: 9,
-	next: 'jbm',
+	next: 'md5-1-100',
 	passwd:"9",
 	html() {
 		return `
