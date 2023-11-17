@@ -6,7 +6,7 @@ module.exports = {
     html() {
         return `
     <div class="puzzle">
-        <p>填写密码就让你过</p>
+        <p>填写上password就让你过</p>
     </div>
     <div class="passwd">
         <input type="text" name="passwd" id="passwd"/>

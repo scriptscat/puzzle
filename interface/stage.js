@@ -88,7 +88,7 @@ class Stage {
             return false;
         }
     }
-    ${stage || stage.jsCode || ""}
+    ${(stage && stage.jsCode) || ""}
 }`;
     return ret;
   }
