@@ -68,7 +68,7 @@ router.get('/js/common.js', function(req, res, next) {
         puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ''));
     }
     res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
-    res.send(Stage.commonJs(puzzle?.jsCode))
+    res.send(Stage.commonJs(puzzle))
 });
 
 module.exports = router;

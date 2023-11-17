@@ -1,67 +1,65 @@
-const path = require('path');
+const path = require("path");
 
 class Stage {
-    constructor(stage) {
-        this.stage = stage.stage || 0;
-        this.next = stage.next || 'stage0';
-        this.passwd = stage.passwd === undefined ? null : stage.passwd;
-        this.title = stage.title || '';
-        this.head = stage.head || (() => '');
-        this.html = stage.html || (() => '');
-        this.last = stage.last || (() => '');
-        this.js = stage.js || (() => '');
-        this.css = stage.css || (() => '');
-        this.feedback = stage.feedback || (async passwd => '密码错误！')
-        this.check = stage.check || null;
-        this.beforeRsp = stage.beforeRsp || null;
-    }
+  constructor(stage) {
+    this.stage = stage.stage || 0;
+    this.next = stage.next || "stage0";
+    this.passwd = stage.passwd === undefined ? null : stage.passwd;
+    this.title = stage.title || "";
+    this.head = stage.head || (() => "");
+    this.html = stage.html || (() => "");
+    this.last = stage.last || (() => "");
+    this.js = stage.js || (() => "");
+    this.css = stage.css || (() => "");
+    this.feedback = stage.feedback || (async (passwd) => "密码错误！");
+    this.check = stage.check || null;
+    this.beforeRsp = stage.beforeRsp || null;
+  }
 
-    get next_page() {
-        return `/${this.next}.html`;
-    }
+  get next_page() {
+    return `/${this.next}.html`;
+  }
 
-    get headCode() {
-        return this.head();
-    }
+  get headCode() {
+    return this.head();
+  }
 
-    get htmlCode() {
-        return this.html();
-    }
+  get htmlCode() {
+    return this.html();
+  }
 
-    get lastCode() {
-        return this.last();
-    }
+  get lastCode() {
+    return this.last();
+  }
 
-    get jsCode() {
-        return this.js();
-    }
+  get jsCode() {
+    return this.js();
+  }
 
-    get cssCode() {
-        return this.css();
-    }
+  get cssCode() {
+    return this.css();
+  }
 
-    async check2next(req, res) {
-        if (this.check && this.check instanceof Function) return await this.check(req, res);
-        if (this.passwd === null || req.body.passwd === undefined) return null; 
-        if (this.passwd.toLowerCase() === req.body.passwd.toLowerCase()) 
-        {
-            return res.redirect(this.next_page);
-        }
-        else return res.send(await this.feedback(req.body.passwd.toLowerCase()));
-    }
+  async check2next(req, res) {
+    if (this.check && this.check instanceof Function)
+      return await this.check(req, res);
+    if (this.passwd === null || req.body.passwd === undefined) return null;
+    if (this.passwd.toLowerCase() === req.body.passwd.toLowerCase()) {
+      return res.redirect(this.next_page);
+    } else return res.send(await this.feedback(req.body.passwd.toLowerCase()));
+  }
 
-    static load(stage)
-    {
-        let stage_path = path.join('..', 'stages', stage.toLowerCase());
-        try {
-            return new Stage(require(stage_path));
-        } catch (error) {
-            return null;
-        }
+  static load(stage) {
+    let stage_path = path.join("..", "stages", stage.toLowerCase());
+    try {
+      return new Stage(require(stage_path));
+    } catch (error) {
+      return null;
     }
+  }
 
-    static commonJs(js) {
-        return `onload = function(){
+  static commonJs(stage) {
+    let ret = `onload = function(){
     var loginLink = document.getElementById("login");
     var registerLink = document.getElementById("register");
     function dialog(ev) {
@@ -90,33 +88,13 @@ class Stage {
             return false;
         }
     }
-    ${js||''}
-}
-let oldAddEv = EventTarget.prototype.addEventListener;
-EventTarget.prototype.addEventListener = function (topic, callback) {
-    let old = callback;
-    arguments[1] = function (ev) {
-        if ((ev instanceof PointerEvent || ev instanceof InputEvent) && ev.isTrusted) {
-            ev.preventDefault();
-            alert('用脚本/console来操作啦');
-            return false;
-        } else if (ev instanceof KeyboardEvent && ev.isTrusted) {
-            ev.preventDefault();
-            return false;
-        }
-        return old.apply(this, arguments);
-    }
-    oldAddEv.apply(this, arguments);
-}
+    ${stage || stage.jsCode || ""}
+}`;
+    return ret;
+  }
 
-document.addEventListener('click',()=>{
-    return false;
-});
-`
-    }
-
-    static commonCss(css) {
-        return `@charset "utf-8";
+  static commonCss(css) {
+    return `@charset "utf-8";
 html{position: relative;min-height: 100%;}
 body {color:#000;background-color:#FFF;padding: 0 5px;margin:0 auto;font: 12px Quicksand,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;}
 input{font: 100% 12px Quicksand,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;}
@@ -145,8 +123,8 @@ footer{height:70px;}
 #dlg_main #dlg_title h4{float:left;padding:0;margin:0;font-size:14px;}
 #dlg_main #dlg_close{float:right;cursor:pointer;width: 30px;text-align: center;}
 #dlg_main #dlg_resize{width: 40px;height: 40px;cursor: nw-resize;right: -20px;bottom: -20px;position: absolute;}
-${css||''}`;
-    }
-};
+${css || ""}`;
+  }
+}
 
 module.exports = Stage;
