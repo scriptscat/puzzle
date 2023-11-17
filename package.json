@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/www",
     "init": "node script/init.js",
     "initdb": "node script/initdb.js"
   },
@@ -25,6 +25,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.13"
   }
 }

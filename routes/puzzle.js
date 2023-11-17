@@ -25,31 +25,31 @@ router.get("/:folder/:stage.php", function (req, res, next) {
   res.redirect(req.url.replace(/\.php/, ".html"));
 });
 
-router.get('/css/common.css', function(req, res, next) {
-    let puzzle = null;
-    if (req.headers.referer) {
-        let ref = new URL(req.headers.referer);
-        puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ''));
-    }
-    res.setHeader('Content-Type', 'text/css;charset=UTF-8');
-    res.send(Stage.commonCss(puzzle?.cssCode))
-})
+router.get("/css/common.css", function (req, res, next) {
+  let puzzle = null;
+  if (req.headers.referer) {
+    let ref = new URL(req.headers.referer);
+    puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ""));
+  }
+  res.setHeader("Content-Type", "text/css;charset=UTF-8");
+  res.send(Stage.commonCss(puzzle?.cssCode));
+});
 
-router.get('/js/common.js', function(req, res, next) {
-    let puzzle = null;
-    if (req.headers.referer) {
-        let ref = new URL(req.headers.referer);
-        puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ''));
-    }
-    res.setHeader('Content-Type', 'text/javascript;charset=UTF-8');
-    res.send(Stage.commonJs(puzzle))
+router.get("/js/common.js", function (req, res, next) {
+  let puzzle = null;
+  if (req.headers.referer) {
+    let ref = new URL(req.headers.referer);
+    puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ""));
+  }
+  res.setHeader("Content-Type", "text/javascript;charset=UTF-8");
+  res.send(Stage.commonJs(puzzle));
 });
 
 router.get("/:stage.html", async function (req, res, next) {
   let puzzle = Stage.load(req.params.stage);
   if (!puzzle) return next();
   if (
-    req.app.get("env") !== "development" &&
+    process.env.NODE_ENV !== "development" &&
     req.session.last &&
     puzzle.stage - req.session.last.stage > 1
   )
