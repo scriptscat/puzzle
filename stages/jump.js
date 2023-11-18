@@ -1,5 +1,5 @@
 module.exports = {
-  stage: 18,
+  stage: 19,
   next: "rank",
   html() {
     let ret = `

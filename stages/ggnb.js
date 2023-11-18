@@ -16,7 +16,7 @@ module.exports = {
 				t--;
 				document.querySelector('#t').innerText=t;
 				if(!t){
-					window.location.href="/tampermonkey.html"
+					window.location.href="${this.next_page}"
 				}
 			},1000);
 		`;

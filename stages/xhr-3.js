@@ -1,10 +1,11 @@
 module.exports = {
-  stage: 15,
-  next: "xhr-3",
+  stage: 16,
+  next: "round",
   html() {
     return `
 		<div class="puzzle">
-		  <p>这回我需要你从/xhr/xhr-2.html来获取密码</p>
+		  <p>请从:wyz.ggnb.top发送祝福语:"油中3周年快乐"过来获取密码</p>
+		  <p>就像这样:greeting=油中3周年快乐</p>
 	  </div>
 		  <div class="passwd">
 		  <input type="text" name="passwd" id="passwd"/>
@@ -18,13 +19,13 @@ module.exports = {
       req.headers.referer.indexOf("wyz.ggnb.top") != -1
     ) {
       const pwd = Math.random();
-      res.cookie("password-2", pwd);
+      res.cookie("password-3", pwd);
       return res.send(200, pwd);
     } else if (
       req.cookies["password"] &&
-      req.body.passwd === req.cookies["password-2"]
+      req.body.passwd === req.cookies["password-3"]
     ) {
-      res.cookie("password-2", "");
+      res.cookie("password-3", "");
       return res.redirect(this.next_page);
     }
     return res.send(400, "密码错误");
