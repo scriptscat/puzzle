@@ -3,6 +3,7 @@ var request = require("request");
 var router = express.Router();
 const config = require("../config.json");
 const model = require("../models");
+const App = require("../interface/app");
 const Account = model.user;
 const Record = model.record;
 
@@ -60,6 +61,7 @@ router.get("/oauth/login", async function (req, res) {
   let user = await Account.findOne({
     where: { id: userInfo.user.uid },
   });
+  let last = req.session.last || { stage: 0, url: "/" };
   if (!user) {
     await Account.create({
       id: userInfo.user.uid,
@@ -72,8 +74,18 @@ router.get("/oauth/login", async function (req, res) {
   } else {
     user.lastlogin = new Date().valueOf() / 1000;
     user.save(user);
+    // 查询记录
+    let record = await Record.findOne({
+      where: { user: user.id },
+      order: [["stage", "DESC"]],
+    });
+    // 使用最大的进度
+    if (last.stage < record.stage) {
+      last = App.filter(record, ["stage", "url"]);
+    } else {
+      req.session.last = App.filter(record, ["stage", "url"]);
+    }
   }
-  let last = req.session.last || { stage: 0, url: "/" };
   let data = {
     user: userInfo.user.uid,
     url: last.url,
@@ -81,7 +93,7 @@ router.get("/oauth/login", async function (req, res) {
     pass_time: 0,
   };
   let record = await Record.findOne({
-    where: { stage: data.stage, user: userInfo.user.username },
+    where: { stage: data.stage, user: data.user },
   });
   if (!record) {
     await Record.create(data);
