@@ -9,6 +9,8 @@ config:
     <base64-encoded>
   dbConfig: |
     <base64-encoded>
+  
+storageClassName: "nfs-client"
 
 image:
   repository: scriptcat/list-frontend

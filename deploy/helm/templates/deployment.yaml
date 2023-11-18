@@ -40,6 +40,9 @@ spec:
           items:
             - key: dbConfig
               path: dbConfig
+      - name: sessions
+        persistentVolumeClaim:
+          claimName: {{ include "scriptcat-list-frontend.fullname" . }}-sessions-pvc
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -58,6 +61,8 @@ spec:
               name: db-config-volume
               mountPath: /www/models/config.json
               subPath: dbConfig
+            - name: sessions
+              mountPath: /www/sessions
           livenessProbe:
             httpGet:
               path: /
