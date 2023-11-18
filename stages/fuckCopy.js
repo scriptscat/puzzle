@@ -1,6 +1,7 @@
 module.exports = {
   stage: 13,
   next: "rank",
+  passwd: "ಲಿ ಹೆಂಗ್ಡಾವೊ 24 ಕೆ ಶುದ್ಧ ಸುಂದರ",
   html() {
     return `
       <div class="puzzle">
@@ -27,16 +28,8 @@ module.exports = {
         evt.preventDefault();
       })
       document.querySelector("#submit").addEventListener("click", function (evt) {
-        if (document.querySelector("#passwd").value === "ಲಿ ಹೆಂಗ್ಡಾವೊ 24 ಕೆ ಶುದ್ಧ ಸುಂದರ") {
-          alert("成功~");
-        } else {
-          evt.preventDefault();
-          alert("你还没有成功哦~");
-        }
+
       });
         `;
-  },
-  async check(req, rsp) {
-    return rsp.redirect(this.next_page);
-  },
+  }
 };
