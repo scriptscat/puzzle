@@ -101,9 +101,9 @@ router.get("/u/:username", async function (req, res, next) {
   }
 });
 
-router.get("/login", function (req, res, next) {
-  res.render("login", { title: "登录", register: false, account: {} });
-});
+// router.get("/login", function (req, res, next) {
+//   res.render("login", { title: "登录", register: false, account: {} });
+// });
 
 router.get("/logout", function (req, res, next) {
   let user = new User(req.session);
@@ -111,48 +111,48 @@ router.get("/logout", function (req, res, next) {
   res.send(`<script>location = '${req.headers.referer || "/"}'</script>`);
 });
 
-router.get("/register", function (req, res, next) {
-  res.render("login", { title: "注册", register: true, account: {} });
-});
+// router.get("/register", function (req, res, next) {
+//   res.render("login", { title: "注册", register: true, account: {} });
+// });
 
-router.post("/login", async function (req, res, next) {
-  let error = "";
-  try {
-    let user = new User(req.session);
-    await user.login(req.body);
-    return res.end(`<script>
-        if (top != window) top.location = top.location;
-        else location = '/'; document.write('');
-        </script>`);
-  } catch (err) {
-    error = err.message;
-  }
-  res.render("login", {
-    error,
-    title: "登录",
-    register: false,
-    account: req.body,
-  });
-});
+// router.post("/login", async function (req, res, next) {
+//   let error = "";
+//   try {
+//     let user = new User(req.session);
+//     await user.login(req.body);
+//     return res.end(`<script>
+//         if (top != window) top.location = top.location;
+//         else location = '/'; document.write('');
+//         </script>`);
+//   } catch (err) {
+//     error = err.message;
+//   }
+//   res.render("login", {
+//     error,
+//     title: "登录",
+//     register: false,
+//     account: req.body,
+//   });
+// });
 
-router.post("/register", async function (req, res, next) {
-  let error = "";
-  try {
-    let user = new User(req.session);
-    await user.create(req.body);
-    return res.send(`<script>
-        if (top != window) top.location = top.location;
-        else location = '/'; document.write('');
-        </script>`);
-  } catch (err) {
-    error = err.message;
-  }
-  res.render("login", {
-    error,
-    title: "注册",
-    register: true,
-    account: req.body,
-  });
-});
+// router.post("/register", async function (req, res, next) {
+//   let error = "";
+//   try {
+//     let user = new User(req.session);
+//     await user.create(req.body);
+//     return res.send(`<script>
+//         if (top != window) top.location = top.location;
+//         else location = '/'; document.write('');
+//         </script>`);
+//   } catch (err) {
+//     error = err.message;
+//   }
+//   res.render("login", {
+//     error,
+//     title: "注册",
+//     register: true,
+//     account: req.body,
+//   });
+// });
 
 module.exports = router;
