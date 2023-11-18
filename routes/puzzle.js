@@ -8,7 +8,9 @@ const User = require("../interface/user");
 router.post("/:stage.html", async function (req, res, next) {
   let puzzle = Stage.load(req.params.stage);
   if (!puzzle) return next();
-  if ((await puzzle.check2next(req, res)) === null) res.redirect(req.url);
+  if ((await puzzle.check2next(req, res)) === null) {
+    res.redirect(req.url);
+  }
 });
 
 router.post("/:folder/:stage.html", async function (req, res, next) {

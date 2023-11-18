@@ -1,9 +1,10 @@
 var express = require("express");
-var request = require("request");
 var router = express.Router();
 const config = require("../config.json");
 const model = require("../models");
 const App = require("../interface/app");
+const utils = require("../utils/utils");
+const httpRequest = utils.httpRequest;
 const Account = model.user;
 const Record = model.record;
 
@@ -11,15 +12,6 @@ const Record = model.record;
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
-
-function httpRequest(options) {
-  return new Promise((resolve) => {
-    request(options, function (error, response) {
-      if (error) throw new Error(error);
-      resolve(JSON.parse(response.body));
-    });
-  });
-}
 
 router.get("/oauth/login", async function (req, res) {
   // 从query中获取code
@@ -63,6 +55,19 @@ router.get("/oauth/login", async function (req, res) {
   });
   let last = req.session.last || { stage: 0, url: "/" };
   if (!user) {
+    // 登录即获得勋章
+    await httpRequest({
+      method: "POST",
+      url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      form: {
+        secret: config.oauth.rpcSecret,
+        uid: userInfo.user.uid,
+        medal: "油中3周年",
+      },
+    });
     await Account.create({
       id: userInfo.user.uid,
       username: userInfo.user.username,
