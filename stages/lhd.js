@@ -1,7 +1,7 @@
 module.exports = {
 	stage: 8,
 	next: 'yhbbs',
-	passwd:"c9f0f895fb98ab9159f51fd0297e236d",
+	passwd:"8",
 	html() {
 		return `
     <div class="puzzle">
