@@ -15,5 +15,5 @@ module.exports = {
 		<br/>
         <input type="submit" name="Submit" value="确认">
     </div>
-    `},
+    `;},
 }
