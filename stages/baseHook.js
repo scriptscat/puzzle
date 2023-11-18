@@ -1,6 +1,6 @@
 module.exports = {
   stage: 11,
-  next: "hello",
+  next: "eventEmit",
   html() {
     return `
     <div class="puzzle">

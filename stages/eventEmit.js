@@ -1,6 +1,6 @@
 module.exports = {
   stage: 12,
-  next: "hello",
+  next: "fuckCopy",
   passwd: "123456",
   html() {
     return `
