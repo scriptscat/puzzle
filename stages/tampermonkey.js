@@ -1,6 +1,6 @@
 module.exports = {
 	stage: 7,
-	next: 'md5',
+	next: 'hidden',
 	passwd:"lhdnb!",
 	html() {
 		return `

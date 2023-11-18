@@ -15,6 +15,7 @@ module.exports = {
     `},
     js() {
         return `
+        console.log('才不告诉你密码是password')
         document.querySelector('#passwd').addEventListener('keypress',(ev)=>{
             return false;
         });
