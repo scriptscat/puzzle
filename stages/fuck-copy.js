@@ -1,6 +1,6 @@
 module.exports = {
   stage: 13,
-  next: "rank",
+  next: "vcode",
   passwd: "ಲಿ ಹೆಂಗ್ಡಾವೊ 24 ಕೆ ಶುದ್ಧ ಸುಂದರ",
   html() {
     return `
