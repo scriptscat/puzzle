@@ -5,6 +5,7 @@ module.exports = {
     return `
 		<div class="puzzle">
 		  <p>请从:wyz.ggnb.top发送祝福语:"油中3周年快乐"过来获取密码</p>
+      <p style="display: none">可以试试referer这个header</p>
 		  <p>就像这样:greeting=油中3周年快乐</p>
 	  </div>
 		  <div class="passwd">
