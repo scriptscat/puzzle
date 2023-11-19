@@ -22,7 +22,7 @@ module.exports = {
       res.cookie("password-3", pwd);
       return res.send(200, pwd);
     } else if (
-      req.cookies["password"] &&
+      req.cookies["password-3"] &&
       req.body.passwd === req.cookies["password-3"]
     ) {
       res.cookie("password-3", "");

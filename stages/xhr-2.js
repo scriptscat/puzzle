@@ -14,14 +14,7 @@ module.exports = {
   },
   async check(req, res) {
     if (
-      req.body.greeting === "油中3周年快乐" &&
-      req.headers.referer.indexOf("wyz.ggnb.top") != -1
-    ) {
-      const pwd = Math.random();
-      res.cookie("password-2", pwd);
-      return res.send(200, pwd);
-    } else if (
-      req.cookies["password"] &&
+      req.cookies["password-2"] &&
       req.body.passwd === req.cookies["password-2"]
     ) {
       res.cookie("password-2", "");
