@@ -1,6 +1,6 @@
 module.exports = {
   stage: 19,
-  next: "rank",
+  next: "key-down",
   html() {
     let ret = `
 			<div class="puzzle">
@@ -107,7 +107,6 @@ module.exports = {
       }
     }
     ret += `</div>`;
-    console.log(ret);
     if (pos > 2) {
       req.session.lasttime = Date.now();
     }
