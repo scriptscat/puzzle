@@ -3,7 +3,6 @@ const randomString = utils.randomString;
 const httpRequest = utils.httpRequest;
 const config = require("../config.json");
 
-
 module.exports = {
   stage: 20,
   next: "rank",
@@ -55,14 +54,10 @@ module.exports = {
     let tmp = req.session.keyDown;
     // 如果超过2秒
     if (
-      !pos ||
       !tmp ||
       (req.session.lasttime && Date.now() - req.session.lasttime > 2000)
     ) {
       return res.send(400, "跳这么慢，刷新重来");
-    }
-    if (pos > 0 && tmp[pos - 1] != req.body.now) {
-      return res.send(400, "打错了，刷新重来");
     }
     if (pos == tmp.length) {
       req.session.lasttime = null;
@@ -79,9 +74,14 @@ module.exports = {
           medal: "挑战者 lv2",
         },
       });
-      return "<script>window.location.href='" + this.next_page + "'</script>";
-    } else if (pos > tmp.length || !tmp[pos]) {
+      return res.send(
+        "<script>window.location.href='" + this.next_page + "'</script>"
+      );
+    } else if (!tmp[pos]) {
       pos = Math.floor(Math.random() * tmp.length);
+    }
+    if (pos > 0 && tmp[pos - 1] != req.body.now) {
+      return res.send(400, "打错了，刷新重来");
     }
     if (pos > 2) {
       req.session.lasttime = Date.now();

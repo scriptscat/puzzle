@@ -81,21 +81,23 @@ module.exports = {
     let tmp = req.session.tmp;
     // 如果超过2秒
     if (
-      !pos ||
       !tmp ||
       (req.session.lasttime && Date.now() - req.session.lasttime > 2000)
     ) {
       return res.send(400, "跳这么慢，刷新重来");
     }
-    if (pos > 0 && tmp[pos - 1][req.body.now] != 1) {
-      return res.send(400, "跳错了，刷新重来");
-    }
     if (pos == tmp.length) {
       req.session.lasttime = null;
       req.session.tmp = null;
-      return "<script>window.location.href='" + this.next_page + "'</script>";
-    } else if (pos > tmp.length || !tmp[pos]) {
+      return res.send(
+        200,
+        "<script>window.location.href='" + this.next_page + "'</script>"
+      );
+    } else if (!tmp[pos]) {
       pos = Math.floor(Math.random() * tmp.length);
+    }
+    if (pos > 0 && tmp[pos - 1][req.body.now] != 1) {
+      return res.send(400, "跳错了，刷新重来");
     }
     // 生成格子
     let ret = "<div class='block'>";
