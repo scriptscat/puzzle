@@ -57,8 +57,11 @@
         <div id="userinfo">
           <% if(!user){ -%>
           <p>
-            <a href="/login" id="login">登录</a> |
-            <a href="/register" id="register">注册</a>
+            <a
+              href="https://bbs.tampermonkey.net.cn/plugin.php?id=codfrm_oauth2:oauth&client_id=<%= config.oauth.client %>&scope=user&response_type=code&redirect_uri=<%= encodeURIComponent(config.domain) %>/oauth/login"
+              >登录</a
+            > |
+            <a href="https://docs.scriptcat.org/" target="_blank">脚本猫</a>
           </p>
           <% }else{ -%>
           <p>
