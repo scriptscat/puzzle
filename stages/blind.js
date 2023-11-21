@@ -76,6 +76,7 @@ module.exports = {
         return `
             <div class="puzzle">
                 <p class="tip">These strange markings seem to spell something out.</p>
+                <p class="tip">Tips: 2 * 3 * 6 * 3</p>
                 <p><img src="${canvas.toDataURL()}"/></p>
             </div>
             <div class="passwd">
