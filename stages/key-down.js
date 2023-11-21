@@ -5,7 +5,7 @@ const config = require("../config.json");
 
 module.exports = {
   stage: 20,
-  next: "rank",
+  next: "blind",
   html() {
     let ret = `
 			<div class="puzzle">

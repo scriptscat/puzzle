@@ -9,6 +9,7 @@
     "initdb": "node script/initdb.js"
   },
   "dependencies": {
+    "canvas": "^2.11.2",
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
