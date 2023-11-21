@@ -62,18 +62,19 @@ module.exports = {
     if (pos == tmp.length) {
       req.session.lasttime = null;
       req.session.keyDown = null;
-      await httpRequest({
-        method: "POST",
-        url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        form: {
-          secret: config.oauth.rpcSecret,
-          uid: req.session.user.id,
-          medal: "挑战者 lv2",
-        },
-      });
+      req.session.user &&
+        (await httpRequest({
+          method: "POST",
+          url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          form: {
+            secret: config.oauth.rpcSecret,
+            uid: req.session.user.id,
+            medal: "挑战者 lv2",
+          },
+        }));
       return res.send(
         "<script>window.location.href='" + this.next_page + "'</script>"
       );

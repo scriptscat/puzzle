@@ -11,18 +11,19 @@ module.exports = {
     if (req.body.passwd != this.passwd) {
       return res.send(400, "密码错误");
     }
-    await httpRequest({
-      method: "POST",
-      url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      form: {
-        secret: config.oauth.rpcSecret,
-        uid: req.session.user.id,
-        medal: "挑战者 lv1",
-      },
-    });
+    req.session.user &&
+      (await httpRequest({
+        method: "POST",
+        url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        form: {
+          secret: config.oauth.rpcSecret,
+          uid: req.session.user.id,
+          medal: "挑战者 lv1",
+        },
+      }));
     return res.redirect(this.next_page);
   },
   html() {
