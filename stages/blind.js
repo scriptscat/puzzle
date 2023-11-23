@@ -64,7 +64,7 @@ function regen() {
 module.exports = {
     stage: 21,
     title: 'Braille', // title提示
-    next: 'rank',
+    next: 'font',
     image: void 0,
     head() {
         return `

@@ -72,7 +72,7 @@ router.get("/oauth/login", async function (req, res) {
       order: [["stage", "DESC"]],
     });
     // 使用最大的进度
-    if (last.stage < record.stage) {
+    if (record && last.stage < record.stage) {
       last = App.filter(record, ["stage", "url"]);
     } else {
       req.session.last = App.filter(record, ["stage", "url"]);
