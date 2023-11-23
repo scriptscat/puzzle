@@ -123,7 +123,7 @@ function convertToQuaternary(decimal) {
 
 module.exports = {
   stage: 24,
-  next: "rank",
+  next: "debugger-easy",
   html() {
     let ret = `
 			  <div class="puzzle">
