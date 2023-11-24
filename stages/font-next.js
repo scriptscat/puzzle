@@ -135,7 +135,6 @@ module.exports = {
 				<input type="text" name="passwd" id="passwd"/>
 				<input type="submit" name="Submit" value="确认密码">
 			  </div>
-			  <canvas id="myCanvas" width="1000" height="1000"></canvas>
 			  `;
     return ret;
   },
@@ -158,7 +157,6 @@ module.exports = {
       str += quaternary;
     }
     this.str = str;
-    console.log(pwd, this.str);
   },
   check(req, resp) {
     if (req.session.pwd) {
@@ -169,25 +167,5 @@ module.exports = {
       return resp.send(400, "密码错误");
     }
     return resp.send(400, "请先获取密码");
-  },
-  css() {
-    return `
-	@font-face {
-		font-family: 'OpenTypeSans';
-		src: url('../fonts/stage-23.otf') format('opentype');
-	}
-	
-	.OpenTypeSans {
-		font-family: "OpenTypeSans" !important;
-		speak: none;
-		font-style: normal;
-		font-weight: normal;
-		font-variant: normal;
-		text-transform: none;
-		line-height: 1;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-	}
-	`;
   },
 };
