@@ -9,6 +9,7 @@ module.exports = {
     </div>
     <div class="passwd">
 		<p>没有输入框?可能程序员偷懒了吧</p>
+		<p>对比前面的关卡少了什么呢？</p>
     </div>
     `}
 }

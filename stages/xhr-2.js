@@ -5,6 +5,7 @@ module.exports = {
     return `
 		<div class="puzzle">
 		  <p>这回我需要你从/xhr/xhr-2.html来获取密码</p>
+      <p style="display: none">作者在set-cookie处埋了坑</p>
 	  </div>
 		  <div class="passwd">
 		  <input type="text" name="passwd" id="passwd"/>

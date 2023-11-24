@@ -1,6 +1,7 @@
 module.exports = {
   stage: 22,
   next: "font-two",
+  passwd: "加密通讯",
   html() {
     let ret = `
 			  <div class="puzzle">
