@@ -5,8 +5,9 @@ module.exports = {
     let ret = `
 			<div class="puzzle">
 			  <p>请计算一下有多少个方块</p>
+        <p style="display:none">tips: 相同坐标只算1个</p>
 			  <p>ps: 可以试试图片识别</p>
-			  <p style="block:none">其实你可以试试hook</p>
+			  <p style="display:none">其实你可以试试hook</p>
 			  <p>pss: 一次识别不成多试几次</p>
 			  <p>psss: 你不会要一直提交到正确的吧😱</p>
 		  </div>
