@@ -66,7 +66,7 @@ function drawSquare(x, y, size, color, borderColor, borderWidth) {
     return ret;
   },
   async check(req, res) {
-    if (req.body.passwd == req.session.num2) {
+    if (req.session.num2 && req.body.passwd == req.session.num2) {
       req.session.num2 = null;
       return res.redirect(this.next_page);
     }
