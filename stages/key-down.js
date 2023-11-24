@@ -9,7 +9,8 @@ module.exports = {
   html() {
     let ret = `
 			<div class="puzzle">
-        <p>指尖跃动</>
+        <p>指尖跃动</p>
+        <p>提示：区分大小写</p>
 		  </div>
       <div class="key">
       </div>
@@ -29,6 +30,7 @@ module.exports = {
   js() {
     return `
     let pos=0;
+    let done = false;
     function req(now){
       fetch("",{
         method:"POST",
@@ -37,13 +39,20 @@ module.exports = {
           "Content-Type":"application/x-www-form-urlencoded"
         }
       }).then(res=>res.text()).then(html=>{
-        document.querySelector(".key").innerHTML+=html;
+        if(html.length == 1){
+          document.querySelector(".key").innerHTML += html;
+        }else{
+          alert(html);
+          done = true;
+        }
       });
     }
-    document.querySelector(".key").addEventListener("keydown",ev=>{
+    oldAddEv.call(document,"keydown",ev=>{
       console.log(ev);
-      pos++;
-      req(ev.key);
+      if(!done && /^[a-z0-9]$/.test(ev.key.toLowerCase())){
+        pos++;
+        req(ev.key);
+      }
     });
     req();
     `;
@@ -76,7 +85,7 @@ module.exports = {
           },
         }));
       return res.send(
-        "<script>window.location.href='" + this.next_page + "'</script>"
+        "下一关地址：" + this.next_page
       );
     } else if (!tmp[pos]) {
       pos = Math.floor(Math.random() * tmp.length);

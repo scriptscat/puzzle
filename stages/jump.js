@@ -57,6 +57,7 @@ module.exports = {
   js() {
     return `
     let pos=0;
+    let done=false;
     function req(now){
       fetch("",{
         method:"POST",
@@ -65,10 +66,16 @@ module.exports = {
           "Content-Type":"application/x-www-form-urlencoded"
         }
       }).then(res=>res.text()).then(html=>{
-        document.querySelector(".jump").innerHTML+=html;
+        if(html.startsWith("<div")){
+          document.querySelector(".jump").innerHTML+=html;
+        }else{
+          alert(html);
+          done=true;
+        }
       });
     }
     window.next=(now)=>{
+      if(done)return;
       pos++;
       req(now);
     }
@@ -89,9 +96,8 @@ module.exports = {
     if (pos == tmp.length) {
       req.session.lasttime = null;
       req.session.tmp = null;
-      return res.send(
-        200,
-        "<script>window.location.href='" + this.next_page + "'</script>"
+      return res.send(200,
+        "下一关地址：" + this.next_page
       );
     } else if (!tmp[pos]) {
       pos = Math.floor(Math.random() * tmp.length);
