@@ -54,6 +54,7 @@ class Stage {
     try {
       return new Stage(require(stage_path));
     } catch (error) {
+      console.error(error);
       return null;
     }
   }

@@ -15,6 +15,7 @@ RUN apt update && \
 
 COPY . .
 
-RUN npm i
+RUN npm i && \
+    npm i canvas
 
 CMD [ "npm","start" ]
