@@ -16,7 +16,7 @@ module.exports = {
     js() {
         return `
             iframe.document.querySelector('#btn').addEventListener('click',()=>{
-                window.location.href="/scriptcat.html"
+                window.location.href="${this.next_page}"
             });
         `
     },

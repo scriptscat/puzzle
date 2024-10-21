@@ -55,19 +55,6 @@ router.get("/oauth/login", async function (req, res) {
   });
   let last = req.session.last || { stage: 0, url: "/" };
   if (!user) {
-    // 登录即获得勋章
-    await httpRequest({
-      method: "POST",
-      url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      form: {
-        secret: config.oauth.rpcSecret,
-        uid: userInfo.user.uid,
-        medal: "油中3周年",
-      },
-    });
     await Account.create({
       id: userInfo.user.uid,
       username: userInfo.user.username,
@@ -85,12 +72,25 @@ router.get("/oauth/login", async function (req, res) {
       order: [["stage", "DESC"]],
     });
     // 使用最大的进度
-    if (last.stage < record.stage) {
+    if (record && last.stage < record.stage) {
       last = App.filter(record, ["stage", "url"]);
     } else {
       req.session.last = App.filter(record, ["stage", "url"]);
     }
   }
+  // 登录即获得勋章
+  await httpRequest({
+    method: "POST",
+    url: "https://bbs.tampermonkey.net.cn/plugin.php?id=tampermonkey_install:activity&activity=medal",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    form: {
+      secret: config.oauth.rpcSecret,
+      uid: userInfo.user.uid,
+      medal: "油中3周年",
+    },
+  });
   let data = {
     user: userInfo.user.uid,
     url: last.url,

@@ -44,6 +44,7 @@ router.get("/js/common.js", function (req, res, next) {
     puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ""));
   }
   res.setHeader("Content-Type", "text/javascript;charset=UTF-8");
+  puzzle.session = req.session;
   res.send(Stage.commonJs(puzzle));
 });
 
@@ -105,16 +106,6 @@ router.get("/css/common.css", function (req, res, next) {
   }
   res.setHeader("Content-Type", "text/css;charset=UTF-8");
   res.send(Stage.commonCss(puzzle?.cssCode));
-});
-
-router.get("/js/common.js", function (req, res, next) {
-  let puzzle = null;
-  if (req.headers.referer) {
-    let ref = new URL(req.headers.referer);
-    puzzle = Stage.load(ref.pathname.replace(/^\/|\.html/g, ""));
-  }
-  res.setHeader("Content-Type", "text/javascript;charset=UTF-8");
-  res.send(Stage.commonJs(puzzle));
 });
 
 module.exports = router;
